@@ -41,5 +41,21 @@ int main(void) {
     // Cerramos el descriptor de fichero
     close(fd);
 
+    fd = open(FILE_NAME, O_RDONLY);
+    if (fd == -1) {
+        if (errno != EEXIST) {
+            fprintf(stderr, "Error al leer el fichero %s\n", FILE_NAME);
+            return -1;
+        }
+    }
+    int sumaReader;
+    if (read(fd, &sumaReader, sizeof(int)) == -1) {
+        fprintf(stderr, "Error al obtener el valor de la suma del array del fichero reader.c\n");
+        return -1;
+    }
+
+    fprintf(stdout, "Suma de los valores del array obtenida de reader.c: %d\n", sumaReader);
+    close(fd);
+
     return 0;
 }

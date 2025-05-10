@@ -35,8 +35,25 @@ int main(void) {
         }
         fprintf(stdout, "Leido valor: %d\n", arr[i]);
     }   
+    close(fd);
+    int sum = 0;
+    for (i = 0 ; i < ARR_SIZE ; i++) {
+        sum += arr[i];
+    }
+    fprintf(stdout, "Suma de los valores del array en reader.c: %d\n", sum);
+    fd = open(FILE_NAME, O_WRONLY);
+    if (fd == -1) {
+        if(errno != EEXIST){
+            fprintf(stderr, "Error al escribir en el fichero %s\n", FILE_NAME);
+            return -1;
+        }
+    }
+
+    if (write(fd, &sum, sizeof(int)) == -1) {
+        fprintf(stderr, "Error al escribir el resultado de la suma\n");
+        return -1;
+    }
     free(arr);
     close(fd);
-    
     return 0;
 }
