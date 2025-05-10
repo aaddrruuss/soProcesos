@@ -13,11 +13,12 @@
 #define FILE_NAME "sum"
 
 int main(void) {
-    int arr[ARR_SIZE];
+    int *arr = (int*)malloc(sizeof(int) * ARR_SIZE);
     srand(time(NULL));
     int i;
     for(i = 0 ; i < ARR_SIZE ; i++) {
-        arr[i] = rand() % 100;
+        arr[i] = (rand() % 5) + 1;
+        fprintf(stdout, "Generated: %d\n", arr[i]);
     }
     // Creamos un descriptor de fichero
     int fd = open(FILE_NAME, O_WRONLY);
@@ -31,13 +32,13 @@ int main(void) {
         }
     }
 
-    for (i = 0 ; i < ARR_SIZE ; i++) {
-        if (write(fd, &arr[i], sizeof(int)) == -1) {
-            fprintf(stderr, "Error al escribir en el array\n");
-            return -1;
-        }
-        fprintf(stdout, "Escrito %d\n", arr[i]);
+    
+    if (write(fd, arr, sizeof(int) * ARR_SIZE) == -1) {
+        fprintf(stderr, "Error al escribir en el array\n");
+        return -1;
     }
+        
+    
     // Cerramos el descriptor de fichero
     close(fd);
 
@@ -55,6 +56,8 @@ int main(void) {
     }
 
     fprintf(stdout, "Suma de los valores del array obtenida de reader.c: %d\n", sumaReader);
+    
+    free(arr);
     close(fd);
 
     return 0;
