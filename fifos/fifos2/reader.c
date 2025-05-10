@@ -28,13 +28,12 @@ int main(void) {
         }
     }
 
-    for (i = 0 ; i < ARR_SIZE ; i++) {
-        if (read(fd, &arr[i], sizeof(int)) == -1) {
-            fprintf(stderr, "Error al leer del arr en la posicion [%d]\n", i);
-            return -1;
-        }
-        fprintf(stdout, "Leido valor: %d\n", arr[i]);
-    }   
+    
+    if (read(fd, arr, sizeof(int) * ARR_SIZE) == -1) {
+        fprintf(stderr, "Error al leer del arr\n");
+        return -1;
+    }
+    
     close(fd);
     int sum = 0;
     for (i = 0 ; i < ARR_SIZE ; i++) {
