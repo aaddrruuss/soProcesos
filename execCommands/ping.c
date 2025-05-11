@@ -16,12 +16,30 @@ int main (int argc, char **argv) {
         return -1;
     }
     if (pid == 0) {
-        execlp("ping", "ping", "-c", "3", "google.com", NULL);
+        int err;
+        err = execlp("ping", "ping", "-c", "3", "google.com", NULL);
+        if (err == -1) {
+            fprintf(stderr, "No se ha encontrado el programa para ejecutar\n");
+            return -1;
+        }
     } else {
-        wait(NULL);
-        fprintf(stdout, "Success!\n");        
+        int wstatus;
+        wait(&wstatus);
+        if (WIFEXITED(wstatus)) {
+            int statusCode = WEXITSTATUS(wstatus);
+            if (statusCode == 0) {
+                fprintf(stdout, "Programa ejecutado correctamente\n");
+            } else {
+                fprintf(stderr, "Error al ejecutar el programa. Error: %d", statusCode);
+            }
+        }     
     }
 
 
     return 0;
 }
+
+
+
+
+
