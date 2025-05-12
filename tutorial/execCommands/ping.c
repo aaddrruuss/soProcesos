@@ -18,10 +18,8 @@ int main (int argc, char **argv) {
     if (pid == 0) {
         int err;
         err = execlp("ping", "ping", "-c", "3", "google.com", NULL);
-        if (err == -1) {
-            fprintf(stderr, "No se ha encontrado el programa para ejecutar\n");
-            return -1;
-        }
+        perror("execvp");
+        exit(-1);
     } else {
         int wstatus;
         wait(&wstatus);
@@ -30,7 +28,7 @@ int main (int argc, char **argv) {
             if (statusCode == 0) {
                 fprintf(stdout, "Programa ejecutado correctamente\n");
             } else {
-                fprintf(stderr, "Error al ejecutar el programa. Error: %d", statusCode);
+                fprintf(stderr, "Error al ejecutar el programa. Error: %d\n", statusCode);
             }
         }     
     }
