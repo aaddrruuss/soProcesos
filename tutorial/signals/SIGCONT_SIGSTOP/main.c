@@ -19,17 +19,26 @@ int main(int argc, char const *argv[]) {
 
     //Proceso Hijo
     if (pid == 0) {
+        int i = 0;
         while (1) {
-            fprintf(stdout, "[HIJO] Test test\n");
+            fprintf(stdout, "[HIJO - %d] Test test\n", i);
             usleep(50000);
+            i++;
         }
     //Proceso Padre
     } else {
+        int t;
         kill(pid, SIGSTOP);
         fprintf(stdout, "[PADRE] Acabo de detener el proceso hijo\n");
-        sleep(1);
-        kill(pid, SIGCONT);
-        sleep(1);
+        do {
+            fprintf(stdout, "Introduce segundos que quieres que dure la ejecucion del proceso hijo: \n");
+            scanf("%d", &t);
+            if (t > 0) {
+                kill(pid, SIGCONT);
+                sleep(t);
+                kill(pid, SIGSTOP);
+            }
+        } while (t > 0);
         kill(pid, SIGKILL);
         wait(NULL);
     }

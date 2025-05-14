@@ -60,7 +60,7 @@ int main(int argc, char const *argv[]) {
         close(p1[1]);
         close(p2[0]);
 
-        while ((numberBytes = read(0, buffer, SIZE_BUFFER)) > 0) {
+        while ((numberBytes = read(STDIN_FILENO, buffer, SIZE_BUFFER)) > 0) {
             if (numberBytes == -1) {
                 fprintf(stderr, "[PADRE] Error al leer de stdin\n");
                 return -1;
