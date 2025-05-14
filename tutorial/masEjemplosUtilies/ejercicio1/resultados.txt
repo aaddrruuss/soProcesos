@@ -1,0 +1,2 @@
+[HIJO] El array de numeros aleatorios es [2 2 4 0 9]
+[PADRE] El resultado de la suma de los valores del array es: 17
