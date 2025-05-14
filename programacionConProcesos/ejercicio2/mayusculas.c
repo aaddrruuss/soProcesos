@@ -6,7 +6,7 @@
 
 #define FD_SIZE 2
 #define SIZE_BUFFER 1024
-#define DIFF_MAYUS_MINUS 32
+#define DIFF_MAYUS_MINUS 32 //Diferencia que hay entre la letra mayuscula y minuscuala en la tabal ASCII
 
 int main(int argc, char const *argv[]) {
     int *p1 = (int*)malloc(sizeof(int) * FD_SIZE); // HIJO -> PADRE (PADRE LEE, HIJO ESCRIBE)
