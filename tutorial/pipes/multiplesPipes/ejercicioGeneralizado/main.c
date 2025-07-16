@@ -9,7 +9,6 @@ Generalizar el ejercicio ../main.c en el que se generan 'n' procesos y se necesi
 
 int main(int argc, char const *argv[])
 {
-    
-
+    printf("Hello World!");
     return 0;
 }
